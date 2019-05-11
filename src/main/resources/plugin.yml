@@ -7,7 +7,7 @@ description: ${project.description}
 commands:
   requiredplugins:
     description: Main plugin command
-    aliases: [reqplugins,reuplugs]
+    aliases: [reqplugins,reqplugs]
     usage: /<command> list|reload
     permission: requiredplugins.command
 permissions:
