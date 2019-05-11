@@ -20,3 +20,6 @@ permissions:
   requiredplugins.bypassblock:
     description: Permission to bypass the login block
     default: op
+  requiredplugins.bypasskick:
+    description: Permission to bypass the kick
+    default: op

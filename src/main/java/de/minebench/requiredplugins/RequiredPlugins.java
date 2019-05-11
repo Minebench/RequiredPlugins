@@ -21,9 +21,9 @@ package de.minebench.requiredplugins;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
-import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.event.server.PluginDisableEvent;
 import org.bukkit.event.server.PluginEnableEvent;
@@ -31,7 +31,6 @@ import org.bukkit.event.server.ServerLoadEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Comparator;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -41,6 +40,7 @@ public final class RequiredPlugins extends JavaPlugin implements Listener {
 
     private Set<String> required;
     private Set<String> missing;
+    private boolean kickOnDisable;
 
     @Override
     public void onEnable() {
@@ -53,6 +53,7 @@ public final class RequiredPlugins extends JavaPlugin implements Listener {
         saveDefaultConfig();
         reloadConfig();
         required = new HashSet<>(getConfig().getStringList("required-plugins"));
+        kickOnDisable = getConfig().getBoolean("kick-on-disable");
         calculateMissing();
     }
 
@@ -75,6 +76,14 @@ public final class RequiredPlugins extends JavaPlugin implements Listener {
     public void onPluginDisable(PluginDisableEvent event) {
         if (required.contains(event.getPlugin().getName())) {
             missing.add(event.getPlugin().getName().toLowerCase());
+            getLogger().warning(event.getPlugin().getName() + " is a required plugin!");
+            for (Player player : getServer().getOnlinePlayers()) {
+                if (player.hasPermission("requiredplugins.bypasskick")) {
+                    player.sendMessage(getText("disabled").replace("%plugin%", event.getPlugin().getName()));
+                } else if (kickOnDisable) {
+                    player.kickPlayer(getText("kick"));
+                }
+            }
         }
     }
 

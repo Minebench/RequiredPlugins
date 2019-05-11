@@ -3,7 +3,11 @@ required-plugins:
 - WorldGuard
 - LWC
 - LogBlock
-# -
+# - ...
+
+# Whether or not to kick all players when a required plugin gets disabled
+# (only players without the requiredplugins.bypasskick permission, these get send the disabled text)
+kick-on-disable: true
 
 # Text message config
 # Available placeholders:
@@ -16,3 +20,6 @@ texts:
   kick: "&cNot all required plugins are loaded!"
   # Message shown to players that have the bypass permission and can login:
   join: "&eThe following required plugins are not loaded: %missing%"
+  # Message shown ingame to everyone with the requiredplugins.bypasskick permission
+  # when a required plugin gets disabled
+  disabled: "&cThe required plugin &e%plugin%&c got disabled!"
