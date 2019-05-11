@@ -1,0 +1,22 @@
+name: RequiredPlugins
+version: ${minecraft.plugin.version}
+main: de.minebench.requiredplugins.RequiredPlugins
+api-version: 1.13
+authors: [Phoenix616]
+description: ${project.description}
+commands:
+  requiredplugins:
+    description: Main plugin command
+    aliases: [reqplugins,reuplugs]
+    usage: /<command> list|reload
+    permission: requiredplugins.command
+permissions:
+  requiredplugins.command:
+    description: Command permission
+    default: op
+  requiredplugins.command.reload:
+    description: Reload command permission
+    default: op
+  requiredplugins.bypassblock:
+    description: Permission to bypass the login block
+    default: op

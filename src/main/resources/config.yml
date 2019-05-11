@@ -1,0 +1,18 @@
+# The plugins that need to be loaded before players can join
+required-plugins:
+- WorldGuard
+- LWC
+- LogBlock
+# -
+
+# Text message config
+# Available placeholders:
+# %plugins%
+# %missing%
+# %missingsize%
+# %requiredsize%
+texts:
+  # Message shown for players that get kicked on join:
+  kick: "&cNot all required plugins are loaded!"
+  # Message shown to players that have the bypass permission and can login:
+  join: "&eThe following required plugins are not loaded: %missing%"
